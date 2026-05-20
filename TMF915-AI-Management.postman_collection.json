@@ -1,0 +1,693 @@
+{
+  "info": {
+    "name": "TMF915 AI Management Suite",
+    "description": "TM Forum TMF915 AI Management Suite REST API v4.0.0\n\n**Setup:**\n1. Set the `baseUrl` variable (default: `http://localhost:8080/tmf-api/AiM/v4`)\n2. Set the `apiKey` variable to your X-API-Key value\n3. Run requests top-to-bottom — Create requests auto-save the `id` for Get/Patch/Delete",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl",  "value": "http://localhost:8080/tmf-api/AiM/v4", "type": "string" },
+    { "key": "apiKey",   "value": "md9e107d9d372bb6826bd81d3542a419d6",   "type": "string" },
+    { "key": "aiModelSpecId",        "value": "", "type": "string" },
+    { "key": "aiModelId",            "value": "", "type": "string" },
+    { "key": "aiContractSpecId",     "value": "", "type": "string" },
+    { "key": "aiContractId",         "value": "", "type": "string" },
+    { "key": "aiContractViolationId","value": "", "type": "string" },
+    { "key": "alarmId",              "value": "", "type": "string" },
+    { "key": "ruleId",               "value": "", "type": "string" },
+    { "key": "monitorId",            "value": "", "type": "string" },
+    { "key": "topicId",              "value": "", "type": "string" },
+    { "key": "eventId",              "value": "", "type": "string" },
+    { "key": "hubId",                "value": "", "type": "string" },
+    { "key": "listenerId",           "value": "", "type": "string" }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key",   "value": "X-API-Key",   "type": "string" },
+      { "key": "value", "value": "{{apiKey}}",   "type": "string" },
+      { "key": "in",    "value": "header",       "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "Utility",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/health", "host": ["http://localhost:8080/health"] }
+          }
+        },
+        {
+          "name": "Get Swagger Spec",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/swagger.json", "host": ["http://localhost:8080/swagger.json"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Model Specification",
+      "item": [
+        {
+          "name": "List AiModelSpecification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/aiModelSpecification?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["aiModelSpecification"],
+              "query": [
+                { "key": "fields", "value": "", "disabled": true },
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create AiModelSpecification",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('aiModelSpecId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"GPT-4 Specification\",\n  \"description\": \"Specification for GPT-4 large language model\",\n  \"lifecycleStatus\": \"active\",\n  \"version\": \"1.0\",\n  \"isBundle\": false,\n  \"validFor\": {\n    \"startDateTime\": \"2024-01-01T00:00:00Z\"\n  }\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiModelSpecification", "host": ["{{baseUrl}}"], "path": ["aiModelSpecification"] }
+          }
+        },
+        {
+          "name": "Get AiModelSpecification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiModelSpecification/{{aiModelSpecId}}", "host": ["{{baseUrl}}"], "path": ["aiModelSpecification", "{{aiModelSpecId}}"] }
+          }
+        },
+        {
+          "name": "Patch AiModelSpecification",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lifecycleStatus\": \"retired\",\n  \"version\": \"1.1\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiModelSpecification/{{aiModelSpecId}}", "host": ["{{baseUrl}}"], "path": ["aiModelSpecification", "{{aiModelSpecId}}"] }
+          }
+        },
+        {
+          "name": "Delete AiModelSpecification",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiModelSpecification/{{aiModelSpecId}}", "host": ["{{baseUrl}}"], "path": ["aiModelSpecification", "{{aiModelSpecId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Model",
+      "item": [
+        {
+          "name": "List AiModel",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/aiModel?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["aiModel"],
+              "query": [
+                { "key": "fields", "value": "", "disabled": true },
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create AiModel",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('aiModelId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"GPT-4 Instance\",\n  \"description\": \"Production deployment of GPT-4\",\n  \"category\": \"LLM\",\n  \"state\": \"active\",\n  \"serviceType\": \"text-generation\",\n  \"startMode\": \"automatic\",\n  \"isBundle\": false,\n  \"hasStarted\": true,\n  \"isStateful\": false,\n  \"aiModelSpecification\": {\n    \"id\": \"{{aiModelSpecId}}\",\n    \"name\": \"GPT-4 Specification\",\n    \"@referredType\": \"AiModelSpecification\"\n  }\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiModel", "host": ["{{baseUrl}}"], "path": ["aiModel"] }
+          }
+        },
+        {
+          "name": "Get AiModel",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiModel/{{aiModelId}}", "host": ["{{baseUrl}}"], "path": ["aiModel", "{{aiModelId}}"] }
+          }
+        },
+        {
+          "name": "Patch AiModel",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"inactive\",\n  \"hasStarted\": false\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiModel/{{aiModelId}}", "host": ["{{baseUrl}}"], "path": ["aiModel", "{{aiModelId}}"] }
+          }
+        },
+        {
+          "name": "Delete AiModel",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiModel/{{aiModelId}}", "host": ["{{baseUrl}}"], "path": ["aiModel", "{{aiModelId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Contract Specification",
+      "item": [
+        {
+          "name": "List AiContractSpecification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/aiContractSpecification?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["aiContractSpecification"],
+              "query": [
+                { "key": "fields", "value": "", "disabled": true },
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create AiContractSpecification",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('aiContractSpecId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Standard LLM Contract Spec\",\n  \"description\": \"Contract specification for standard LLM service level agreements\",\n  \"lifecycleStatus\": \"active\",\n  \"version\": \"1.0\",\n  \"isBundle\": false,\n  \"specCharacteristic\": [\n    {\n      \"name\": \"maxLatencyMs\",\n      \"valueType\": \"integer\"\n    },\n    {\n      \"name\": \"minAccuracy\",\n      \"valueType\": \"float\"\n    }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiContractSpecification", "host": ["{{baseUrl}}"], "path": ["aiContractSpecification"] }
+          }
+        },
+        {
+          "name": "Get AiContractSpecification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiContractSpecification/{{aiContractSpecId}}", "host": ["{{baseUrl}}"], "path": ["aiContractSpecification", "{{aiContractSpecId}}"] }
+          }
+        },
+        {
+          "name": "Patch AiContractSpecification",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lifecycleStatus\": \"retired\",\n  \"version\": \"1.1\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiContractSpecification/{{aiContractSpecId}}", "host": ["{{baseUrl}}"], "path": ["aiContractSpecification", "{{aiContractSpecId}}"] }
+          }
+        },
+        {
+          "name": "Delete AiContractSpecification",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiContractSpecification/{{aiContractSpecId}}", "host": ["{{baseUrl}}"], "path": ["aiContractSpecification", "{{aiContractSpecId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Contract",
+      "item": [
+        {
+          "name": "List AiContract",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/aiContract?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["aiContract"],
+              "query": [
+                { "key": "fields", "value": "", "disabled": true },
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create AiContract",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('aiContractId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"GPT-4 Production Contract\",\n  \"description\": \"Active SLA contract for GPT-4 production deployment\",\n  \"state\": \"active\",\n  \"approved\": true,\n  \"version\": \"1.0\",\n  \"aiModel\": {\n    \"id\": \"{{aiModelId}}\",\n    \"@referredType\": \"AiModel\"\n  },\n  \"aiContractSpecification\": {\n    \"id\": \"{{aiContractSpecId}}\",\n    \"@referredType\": \"AiContractSpecification\"\n  },\n  \"characteristic\": [\n    { \"name\": \"maxLatencyMs\", \"value\": 500 },\n    { \"name\": \"minAccuracy\",  \"value\": 0.95 }\n  ],\n  \"validFor\": {\n    \"startDateTime\": \"2024-01-01T00:00:00Z\",\n    \"endDateTime\":   \"2025-01-01T00:00:00Z\"\n  }\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiContract", "host": ["{{baseUrl}}"], "path": ["aiContract"] }
+          }
+        },
+        {
+          "name": "Get AiContract",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiContract/{{aiContractId}}", "host": ["{{baseUrl}}"], "path": ["aiContract", "{{aiContractId}}"] }
+          }
+        },
+        {
+          "name": "Patch AiContract",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"suspended\",\n  \"approved\": false\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiContract/{{aiContractId}}", "host": ["{{baseUrl}}"], "path": ["aiContract", "{{aiContractId}}"] }
+          }
+        },
+        {
+          "name": "Delete AiContract",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiContract/{{aiContractId}}", "host": ["{{baseUrl}}"], "path": ["aiContract", "{{aiContractId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Contract Violation",
+      "item": [
+        {
+          "name": "List AiContractViolation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/aiContractViolation?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["aiContractViolation"],
+              "query": [
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create AiContractViolation",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('aiContractViolationId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2024-06-01T10:00:00Z\",\n  \"aiContract\": {\n    \"id\": \"{{aiContractId}}\",\n    \"@referredType\": \"AiContract\"\n  },\n  \"violation\": {\n    \"type\": \"latencyExceeded\",\n    \"description\": \"Response latency exceeded 500ms SLA threshold\"\n  }\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/aiContractViolation", "host": ["{{baseUrl}}"], "path": ["aiContractViolation"] }
+          }
+        },
+        {
+          "name": "Get AiContractViolation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/aiContractViolation/{{aiContractViolationId}}", "host": ["{{baseUrl}}"], "path": ["aiContractViolation", "{{aiContractViolationId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alarm",
+      "item": [
+        {
+          "name": "List Alarm",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/alarm?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["alarm"],
+              "query": [
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Alarm",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('alarmId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alarmRaisedTime\": \"2024-06-01T10:00:00Z\",\n  \"alarmType\": \"qualityOfServiceAlarm\",\n  \"alarmedObjectType\": \"AiModel\",\n  \"perceivedSeverity\": \"major\",\n  \"probableCause\": \"softwareError\",\n  \"specificProblem\": \"Model accuracy dropped below threshold\",\n  \"state\": \"outstanding\",\n  \"isRootCause\": true,\n  \"serviceAffecting\": true\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/alarm", "host": ["{{baseUrl}}"], "path": ["alarm"] }
+          }
+        },
+        {
+          "name": "Get Alarm",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/alarm/{{alarmId}}", "host": ["{{baseUrl}}"], "path": ["alarm", "{{alarmId}}"] }
+          }
+        },
+        {
+          "name": "Patch Alarm",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"cleared\",\n  \"alarmClearedTime\": \"2024-06-01T11:00:00Z\",\n  \"clearUserId\": \"ops-team\",\n  \"proposedRepairedActions\": \"Model retrained and redeployed\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/alarm/{{alarmId}}", "host": ["{{baseUrl}}"], "path": ["alarm", "{{alarmId}}"] }
+          }
+        },
+        {
+          "name": "Delete Alarm",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/alarm/{{alarmId}}", "host": ["{{baseUrl}}"], "path": ["alarm", "{{alarmId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rule",
+      "item": [
+        {
+          "name": "List Rule",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rule?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["rule"],
+              "query": [
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Rule",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('ruleId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Latency Threshold Rule\",\n  \"@type\": \"ThresholdRule\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/rule", "host": ["{{baseUrl}}"], "path": ["rule"] }
+          }
+        },
+        {
+          "name": "Get Rule",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/rule/{{ruleId}}", "host": ["{{baseUrl}}"], "path": ["rule", "{{ruleId}}"] }
+          }
+        },
+        {
+          "name": "Patch Rule",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Latency Threshold Rule v2\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/rule/{{ruleId}}", "host": ["{{baseUrl}}"], "path": ["rule", "{{ruleId}}"] }
+          }
+        },
+        {
+          "name": "Delete Rule",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/rule/{{ruleId}}", "host": ["{{baseUrl}}"], "path": ["rule", "{{ruleId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Monitor",
+      "item": [
+        {
+          "name": "List Monitor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/monitor?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["monitor"],
+              "query": [
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Monitor",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('monitorId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceHref\": \"/tmf-api/AiM/v4/aiModel/{{aiModelId}}\",\n  \"state\": \"running\",\n  \"request\": {\n    \"method\": \"GET\",\n    \"url\": \"/tmf-api/AiM/v4/aiModel/{{aiModelId}}\"\n  }\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/monitor", "host": ["{{baseUrl}}"], "path": ["monitor"] }
+          }
+        },
+        {
+          "name": "Get Monitor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/monitor/{{monitorId}}", "host": ["{{baseUrl}}"], "path": ["monitor", "{{monitorId}}"] }
+          }
+        },
+        {
+          "name": "Patch Monitor",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"completed\",\n  \"response\": {\n    \"statusCode\": 200,\n    \"body\": \"{\\\"state\\\":\\\"active\\\"}\"\n  }\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/monitor/{{monitorId}}", "host": ["{{baseUrl}}"], "path": ["monitor", "{{monitorId}}"] }
+          }
+        },
+        {
+          "name": "Delete Monitor",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/monitor/{{monitorId}}", "host": ["{{baseUrl}}"], "path": ["monitor", "{{monitorId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Topic",
+      "item": [
+        {
+          "name": "List Topic",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/topic?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["topic"],
+              "query": [
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Topic",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('topicId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"AI Model Events\",\n  \"contentQuery\": \"eventType=AiModelCreateEvent,AiModelDeleteEvent\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/topic", "host": ["{{baseUrl}}"], "path": ["topic"] }
+          }
+        },
+        {
+          "name": "Get Topic",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/topic/{{topicId}}", "host": ["{{baseUrl}}"], "path": ["topic", "{{topicId}}"] }
+          }
+        },
+        {
+          "name": "Patch Topic",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"AI Model Events (updated)\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/topic/{{topicId}}", "host": ["{{baseUrl}}"], "path": ["topic", "{{topicId}}"] }
+          }
+        },
+        {
+          "name": "Delete Topic",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/topic/{{topicId}}", "host": ["{{baseUrl}}"], "path": ["topic", "{{topicId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "item": [
+        {
+          "name": "List Events (under Topic)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/topic/{{topicId}}/event?offset=0&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["topic", "{{topicId}}", "event"],
+              "query": [
+                { "key": "offset", "value": "0" },
+                { "key": "limit",  "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Event",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/topic/{{topicId}}/event/{{eventId}}", "host": ["{{baseUrl}}"], "path": ["topic", "{{topicId}}", "event", "{{eventId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hub",
+      "item": [
+        {
+          "name": "List Hub",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/hub", "host": ["{{baseUrl}}"], "path": ["hub"] }
+          }
+        },
+        {
+          "name": "Create Hub (register webhook)",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('hubId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callback\": \"https://webhook.site/your-unique-id\",\n  \"query\": \"eventType=AiModelCreateEvent\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/hub", "host": ["{{baseUrl}}"], "path": ["hub"] }
+          }
+        },
+        {
+          "name": "Get Hub",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/hub/{{hubId}}", "host": ["{{baseUrl}}"], "path": ["hub", "{{hubId}}"] }
+          }
+        },
+        {
+          "name": "Delete Hub (unregister webhook)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/hub/{{hubId}}", "host": ["{{baseUrl}}"], "path": ["hub", "{{hubId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Listener",
+      "item": [
+        {
+          "name": "Register Listener",
+          "event": [{ "listen": "test", "script": { "exec": ["var r = pm.response.json(); if (r.id) pm.collectionVariables.set('listenerId', r.id);"], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callback\": \"https://webhook.site/your-unique-id\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/listener", "host": ["{{baseUrl}}"], "path": ["listener"] }
+          }
+        },
+        {
+          "name": "Unregister Listener",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/listener/{{listenerId}}", "host": ["{{baseUrl}}"], "path": ["listener", "{{listenerId}}"] }
+          }
+        }
+      ]
+    }
+  ]
+}
