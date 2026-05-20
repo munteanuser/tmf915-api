@@ -1,0 +1,15 @@
+meta {
+  name: Get AI Model Specification
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/aiModelSpecification/{{aiModelSpecId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

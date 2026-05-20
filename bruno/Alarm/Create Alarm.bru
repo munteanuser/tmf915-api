@@ -1,0 +1,31 @@
+meta {
+  name: Create Alarm
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/alarm
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "alarmType": "qualityOfServiceAlarm",
+    "perceivedSeverity": "critical",
+    "state": "raised",
+    "alarmDetails": "Model accuracy dropped below 85% threshold",
+    "specificProblem": "accuracy-degradation"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("alarmId", res.body.id);
+  }
+}

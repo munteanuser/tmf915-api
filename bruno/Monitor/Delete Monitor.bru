@@ -1,0 +1,15 @@
+meta {
+  name: Delete Monitor
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/monitor/{{monitorId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

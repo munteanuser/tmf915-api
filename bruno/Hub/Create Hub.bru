@@ -1,0 +1,28 @@
+meta {
+  name: Create Hub
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/hub
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "callback": "https://webhook.site/your-unique-url",
+    "query": "eventType=AiModelCreateEvent"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("hubId", res.body.id);
+  }
+}

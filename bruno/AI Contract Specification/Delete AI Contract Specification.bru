@@ -1,0 +1,15 @@
+meta {
+  name: Delete AI Contract Specification
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/aiContractSpecification/{{aiContractSpecId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

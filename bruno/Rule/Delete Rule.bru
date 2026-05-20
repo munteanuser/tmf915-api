@@ -1,0 +1,15 @@
+meta {
+  name: Delete Rule
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/rule/{{ruleId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

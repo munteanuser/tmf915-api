@@ -1,0 +1,21 @@
+meta {
+  name: Patch AI Contract
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/aiContract/{{aiContractId}}
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "state": "terminated"
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: List Alarms
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/alarm
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

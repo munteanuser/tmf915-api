@@ -1,0 +1,29 @@
+meta {
+  name: Create Topic
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/topic
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "name": "model-events",
+    "description": "Topic for AI model lifecycle events",
+    "state": "active"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("topicId", res.body.id);
+  }
+}

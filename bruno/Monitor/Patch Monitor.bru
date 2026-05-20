@@ -1,0 +1,21 @@
+meta {
+  name: Patch Monitor
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/monitor/{{monitorId}}
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "state": "suspended"
+  }
+}

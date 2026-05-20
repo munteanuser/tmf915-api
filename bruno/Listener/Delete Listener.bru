@@ -1,0 +1,15 @@
+meta {
+  name: Delete Listener
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/listener/{{listenerId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

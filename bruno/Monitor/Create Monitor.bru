@@ -1,0 +1,30 @@
+meta {
+  name: Create Monitor
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/monitor
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "name": "GPT-4 Accuracy Monitor",
+    "description": "Monitors model accuracy metrics",
+    "state": "active",
+    "monitorType": "performance"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("monitorId", res.body.id);
+  }
+}

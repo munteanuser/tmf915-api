@@ -1,0 +1,21 @@
+meta {
+  name: Patch Alarm
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/alarm/{{alarmId}}
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "state": "cleared"
+  }
+}

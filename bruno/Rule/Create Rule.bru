@@ -1,0 +1,31 @@
+meta {
+  name: Create Rule
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/rule
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "name": "Accuracy Threshold Rule",
+    "description": "Trigger alarm when model accuracy drops below 85%",
+    "ruleType": "threshold",
+    "state": "active",
+    "expression": "accuracy < 0.85"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("ruleId", res.body.id);
+  }
+}

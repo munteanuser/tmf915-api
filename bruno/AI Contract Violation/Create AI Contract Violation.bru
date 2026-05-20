@@ -1,0 +1,30 @@
+meta {
+  name: Create AI Contract Violation
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/aiContractViolation
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "name": "Latency Breach",
+    "description": "Response time exceeded 500ms SLA threshold",
+    "violationType": "performance",
+    "severity": "minor"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("aiContractViolationId", res.body.id);
+  }
+}

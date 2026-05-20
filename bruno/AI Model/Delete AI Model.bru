@@ -1,0 +1,15 @@
+meta {
+  name: Delete AI Model
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/aiModel/{{aiModelId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

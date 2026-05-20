@@ -1,0 +1,15 @@
+meta {
+  name: Get Hub
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/hub/{{hubId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

@@ -1,0 +1,30 @@
+meta {
+  name: Create AI Contract Specification
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/aiContractSpecification
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "name": "Standard SLA Spec",
+    "description": "Standard service level agreement specification",
+    "version": "1.0",
+    "state": "active"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("aiContractSpecId", res.body.id);
+  }
+}

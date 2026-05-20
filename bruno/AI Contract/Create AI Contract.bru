@@ -1,0 +1,30 @@
+meta {
+  name: Create AI Contract
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/aiContract
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "name": "GPT-4 Production Contract",
+    "description": "Production SLA for GPT-4 usage",
+    "state": "active",
+    "documentNumber": "CTR-2026-001"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("aiContractId", res.body.id);
+  }
+}

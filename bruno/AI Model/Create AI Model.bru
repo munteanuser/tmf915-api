@@ -1,0 +1,33 @@
+meta {
+  name: Create AI Model
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/aiModel
+  body: json
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "name": "GPT-4",
+    "description": "Large language model by OpenAI",
+    "state": "active",
+    "modelType": "generative",
+    "framework": "transformer",
+    "vendor": "OpenAI",
+    "version": "4.0"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("aiModelId", res.body.id);
+  }
+}

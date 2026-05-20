@@ -1,0 +1,15 @@
+meta {
+  name: Get AI Contract
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/aiContract/{{aiContractId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}

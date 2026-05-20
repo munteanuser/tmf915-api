@@ -1,0 +1,15 @@
+meta {
+  name: Delete Topic
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/topic/{{topicId}}
+  body: none
+  auth: none
+}
+
+headers {
+  X-API-Key: {{apiKey}}
+}
