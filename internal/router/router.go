@@ -182,6 +182,12 @@ func New(
 	mux.HandleFunc("POST "+base+"/listener", hub.RegisterListener)
 	mux.HandleFunc("DELETE "+base+"/listener/{id}", hub.UnregisterListener)
 
+	// Management SPA (no auth — API key entered inside the app)
+	mux.Handle("/app/", http.StripPrefix("/app", http.FileServer(http.Dir("spa"))))
+	mux.HandleFunc("/app", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/app/", http.StatusMovedPermanently)
+	})
+
 	// Health check (no auth)
 	mux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")

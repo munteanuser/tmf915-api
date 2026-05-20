@@ -10,8 +10,10 @@ func APIKey(key string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Public endpoints
-			if r.URL.Path == "/health" || r.URL.Path == "/docs" || r.URL.Path == "/swagger.json" ||
-				len(r.URL.Path) > 5 && r.URL.Path[:5] == "/docs" {
+			p := r.URL.Path
+			if p == "/health" || p == "/docs" || p == "/swagger.json" ||
+				(len(p) > 5 && p[:5] == "/docs") ||
+				p == "/app" || (len(p) > 4 && p[:5] == "/app/") {
 				next.ServeHTTP(w, r)
 				return
 			}
