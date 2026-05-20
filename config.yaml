@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  read_timeout: 30s
+  write_timeout: 30s
+  idle_timeout: 60s
+
+database:
+  dsn: "server=DESKTOP-V2M1TS5;database=TMF915;integrated security=true;connection timeout=30;encrypt=false;trustservercertificate=true;app name=TMF915-API;connection retry count=1;connection retry interval=10"
+  max_open_conns: 25
+  max_idle_conns: 5
+  conn_max_lifetime: 5m
+
+auth:
+  api_key: "md9e107d9d372bb6826bd81d3542a419d6"  # Example API key (MD5 hash of "The quick brown fox jumps over the lazy dog")
+
+log:
+  level: "info"    # debug | info | warn | error
+  format: "json"   # json | console
+
+events:
+  dispatch_timeout: 10s
+  max_retry: 3

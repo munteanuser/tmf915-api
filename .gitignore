@@ -1,0 +1,11 @@
+# Binaries
+*.exe
+*.exe~
+
+# Temp files
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
